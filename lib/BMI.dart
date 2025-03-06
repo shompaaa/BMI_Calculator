@@ -42,7 +42,7 @@ class _BMIState extends State<BMI> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          spacing: 20,
+          spacing: 15,
           children: [
             TextFormField(
               controller: feetController,
@@ -71,46 +71,48 @@ class _BMIState extends State<BMI> {
                   'Calculate',
                   style: TextStyle(fontSize: 23, color: Colors.white),
                 )),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             SfRadialGauge(
                 title: GaugeTitle(
                     text: 'BMI Meter',
-                    textStyle: TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.bold)),
+                    textStyle:
+                        TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
                 axes: <RadialAxis>[
-                  RadialAxis(minimum: 18.5, maximum: 40.0, ranges: <GaugeRange>[
+                  RadialAxis(minimum: 18.5, maximum: 45.0, ranges: <GaugeRange>[
                     GaugeRange(
                         startValue: 18.5,
                         endValue: 24.9,
-                        color: Colors.green,
+                        color: Colors.orange,
                         startWidth: 10,
                         endWidth: 10),
                     GaugeRange(
                         startValue: 25.0,
                         endValue: 29.9,
-                        color: Colors.orange,
+                        color: Colors.green,
                         startWidth: 10,
                         endWidth: 10),
                     GaugeRange(
                         startValue: 30.0,
                         endValue: 34.9,
-                        color: Colors.red,
+                        color: Colors.blue,
                         startWidth: 10,
                         endWidth: 10),
                     GaugeRange(
                         startValue: 35.0,
                         endValue: 39.9,
-                        color: Colors.blue,
+                        color: Colors.redAccent.shade100,
                         startWidth: 10,
                         endWidth: 10),
                     GaugeRange(
                         startValue: 40.0,
                         endValue: 45.0,
-                        color: Colors.deepOrange,
+                        color: Colors.red,
                         startWidth: 10,
                         endWidth: 10)
                   ], pointers: <GaugePointer>[
-                    NeedlePointer(value: finalBMI )
+                    NeedlePointer(value: finalBMI)
                   ], annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Container(
@@ -122,24 +124,72 @@ class _BMIState extends State<BMI> {
                         positionFactor: 0.6)
                   ])
                 ]),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Underweight',style: TextStyle(fontSize: 24),),
-                SizedBox(width: 20,),
-                Text('Underweight',style: TextStyle(fontSize: 24),),
+                Text(
+                  'Underweight',
+                  style: TextStyle(
+                    color: (finalBMI >= 18.5 && finalBMI <= 24.9
+                        ? Colors.orange
+                        : Colors.grey),
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Normal',
+                  style: TextStyle(
+                    color: (finalBMI >= 25.0 && finalBMI <= 29.9
+                        ? Colors.green
+                        : Colors.grey),
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Underweight',style: TextStyle(fontSize: 24),),
-                SizedBox(width: 20,),
-                Text('Underweight',style: TextStyle(fontSize: 24),),
+                Text(
+                  'Overweight',
+                  style: TextStyle(
+                    color: (finalBMI >= 30.0 && finalBMI <= 34.9
+                        ? Colors.blue
+                        : Colors.grey),
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Obese',
+                  style: TextStyle(
+                    color: (finalBMI >= 35.0 && finalBMI <= 39.9
+                        ? Colors.redAccent.shade100
+                        : Colors.grey),
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
+            ),
+            Text(
+              'Extremely Obese',
+              style: TextStyle(
+                color: (finalBMI >= 40.0
+                    ? Colors.red
+                    : Colors.grey),
+                fontSize: 23,
+                fontWeight: FontWeight.bold,
+              ),
             )
-
           ],
         ),
       ),
